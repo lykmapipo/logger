@@ -27,8 +27,8 @@ describe('logger', () => {
   });
 
   it('should create logger instance', () => {
-    const client = createLogger();
-    expect(client).to.exist;
+    const logger = createLogger();
+    expect(logger).to.exist;
   });
 
   it('should not re-create logger instance', () => {

@@ -17,8 +17,10 @@ let logger;
  *
  * import { createLogger } from '@lykmapipo/logger';
  * const logger = createLogger();
+ * //=> Logger {}
  *
  * const logger = createLogger(customLogger);
+ * //=> Logger {}
  */
 export const createLogger = customLogger => {
   // create logger
@@ -55,6 +57,7 @@ export const createLogger = customLogger => {
  * import { disposeLogger } from '@lykmapipo/logger';
  * const logger = disposeLogger();
  * //=> null
+ *
  */
 export const disposeLogger = () => {
   logger = null;
