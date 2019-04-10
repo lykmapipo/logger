@@ -21,6 +21,7 @@ let logger;
  *
  * const logger = createLogger(customLogger);
  * //=> Logger {}
+ * 
  */
 export const createLogger = customLogger => {
   // create logger
