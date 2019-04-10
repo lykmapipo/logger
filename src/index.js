@@ -7,7 +7,7 @@ let logger;
  * @function logger
  * @name logger
  * @description create logger instance if not exists
- * @param {Object} [customLogger] custom lgger to use
+ * @param {Object} [customLogger] custom logger to use
  * @return {Object} A new instance of of logger
  * @since 0.1.0
  * @version 0.1.0
@@ -17,6 +17,8 @@ let logger;
  *
  * import { createLogger } from '@lykmapipo/logger';
  * const logger = createLogger();
+ *
+ * const logger = createLogger(customLogger);
  */
 export const createLogger = customLogger => {
   // create logger
@@ -43,12 +45,13 @@ export const createLogger = customLogger => {
 /**
  * @function disposeLogger
  * @name disposeLogger
- * @description reset current logger instance in use.
+ * @description reset current logger instance in use
  * @since 0.1.0
  * @version 0.1.0
  * @static
  * @public
  * @example
+ *
  * import { disposeLogger } from '@lykmapipo/logger';
  * const logger = disposeLogger();
  * //=> null
