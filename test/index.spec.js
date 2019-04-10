@@ -118,6 +118,14 @@ describe('logger', () => {
     expect(log.timestamp).to.exist;
   });
 
+  it('should log debug', () => {
+    const log = debug({ message: 'Hello' });
+    expect(log).to.exist;
+    expect(log.level).to.be.equal('debug');
+    expect(log.message).to.be.equal('Hello');
+    expect(log.timestamp).to.exist;
+  });
+
   after(() => {
     disposeLogger();
     delete process.env.LOGGER_LOG_LEVEL;

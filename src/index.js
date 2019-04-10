@@ -295,6 +295,38 @@ export const verbose = log => {
   return normalized;
 };
 
-export const debug = () => {};
+/**
+ * @function debug
+ * @name debug
+ * @param {Object} log valid debug log
+ * @description log debug
+ * @return {Object} normalized debug log object
+ * @since 0.1.0
+ * @version 0.1.0
+ * @static
+ * @public
+ * @example
+ *
+ * import { debug } from '@lykmapipo/logger';
+ * const log = debug(log);
+ * //=> { level: 'debug', timestamp: '2019-04-10T13:37:35.643Z', ...}
+ *
+ */
+export const debug = log => {
+  // obtain logger
+  logger = createLogger();
+
+  // normalize log
+  const defaults = { level: 'debug' };
+  const normalized = mergeObjects(defaults, normalizeLog(log));
+
+  if (canLog('debug')) {
+    logger.debug(normalized);
+  }
+
+  // return normalized log structure
+  return normalized;
+};
+
 export const silly = () => {};
 export const log = () => {};
