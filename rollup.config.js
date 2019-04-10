@@ -3,7 +3,13 @@ import pkg from './package.json';
 export default [
   {
     input: 'src/index.js',
-    external: ['lodash', '@lykmapipo/env', '@lykmapipo/common', 'winston'],
+    external: [
+      'lodash',
+      '@lykmapipo/env',
+      '@lykmapipo/common',
+      'winston',
+      'winston-daily-rotate-file',
+    ],
     output: [
       {
         file: pkg.main,
