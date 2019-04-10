@@ -2,6 +2,7 @@ import { isError, isFunction } from 'lodash';
 import { getBoolean, getString } from '@lykmapipo/env';
 import { mergeObjects, mapErrorToObject } from '@lykmapipo/common';
 import { createLogger as buildLogger, transports } from 'winston';
+import DailyRotateFile from 'winston-daily-rotate-file';
 
 // ref logger instance
 let logger;
@@ -66,11 +67,31 @@ export const canLog = level => {
  *
  */
 export const createWinstonLogger = () => {
+  // obtain configs
   const LOGGER_LOG_LEVEL = getString('LOGGER_LOG_LEVEL', 'silly');
+  const LOGGER_USE_CONSOLE = getString('LOGGER_USE_CONSOLE', true);
+  const LOGGER_USE_FILE = getString('LOGGER_USE_FILE', true);
+  const LOGGER_LOG_PATH = getString('LOGGER_LOG_PATH', './logs/app-%DATE%.log');
+
+  // create transaports
+  let logTransports = [];
+  if (LOGGER_USE_CONSOLE) {
+    logTransports = [...logTransports, new transports.Console()];
+  }
+  if (LOGGER_USE_FILE && LOGGER_LOG_PATH) {
+    logTransports = [
+      ...logTransports,
+      new DailyRotateFile({ filename: LOGGER_LOG_PATH }),
+    ];
+  }
+
+  // create winston logger
   const winston = buildLogger({
     level: LOGGER_LOG_LEVEL,
-    transports: [new transports.Console()],
+    transports: logTransports,
   });
+
+  // return winston logger instance
   return winston;
 };
 
