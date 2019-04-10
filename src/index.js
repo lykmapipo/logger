@@ -166,7 +166,8 @@ export const error = errorLog => {
   const isEnabled = isLoggingEnabled() && isFunction(logger.error);
 
   // normalize log
-  const log = normalizeLog(errorLog);
+  const defaults = { level: 'error' };
+  const log = mergeObjects(defaults, normalizeLog(errorLog));
 
   if (isEnabled) {
     logger.error(log);

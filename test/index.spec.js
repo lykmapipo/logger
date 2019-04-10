@@ -86,6 +86,10 @@ describe('logger', () => {
     expect(log.level).to.be.equal('error');
     expect(log.message).to.be.equal('Invalid Arguments');
     expect(log.timestamp).to.exist;
+    expect(log.stack).to.exist;
+    expect(log.code).to.exist;
+    expect(log.status).to.exist;
+    expect(log.name).to.exist;
   });
 
   after(() => {
