@@ -27,6 +27,16 @@ info({ message: 'Server Starting', port: 4000 });
 error(new Error('Invalid Arguments'));
 ```
 
+## Environment
+```js
+LOGGER_LOG_ENABLED=true
+LOGGER_LOG_LEVEL=silly
+LOGGER_USE_CONSOLE=true
+LOGGER_USE_FILE=true
+LOGGER_LOG_PATH=./logs/app-%DATE%.log
+```
+
+
 ## Test
 
 - Clone this repository
