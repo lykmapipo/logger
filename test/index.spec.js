@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import {
   isLoggingEnabled,
+  canLog,
   createWinstonLogger,
   createLogger,
   disposeLogger,
@@ -22,6 +23,7 @@ describe('logger', () => {
 
   it('should expose log helpers', () => {
     expect(isLoggingEnabled).to.exist.and.to.be.a('function');
+    expect(canLog).to.exist.and.to.be.a('function');
     expect(createWinstonLogger).to.exist.and.to.be.a('function');
     expect(createLogger).to.exist.and.to.be.a('function');
     expect(disposeLogger).to.exist.and.to.be.a('function');

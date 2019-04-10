@@ -28,6 +28,28 @@ export const isLoggingEnabled = () => {
 };
 
 /**
+ * @function canLog
+ * @name canLog
+ * @description check if logging is enabled and logger has log level
+ * @param {String} level valid log level
+ * @return {Boolean} whether log level can be logged
+ * @since 0.1.0
+ * @version 0.1.0
+ * @static
+ * @public
+ * @example
+ *
+ * import { canLog } from '@lykmapipo/logger';
+ * const can = canLog('error');
+ * //=> true
+ *
+ */
+export const canLog = level => {
+  const can = logger && isFunction(logger[level]) && isLoggingEnabled();
+  return can;
+};
+
+/**
  * @function createWinstonLogger
  * @name createWinstonLogger
  * @description create winston logger instance
@@ -144,7 +166,7 @@ export const normalizeLog = log => {
 /**
  * @function error
  * @name error
- * @param {Error} errorLog valid error instance
+ * @param {Error} log valid error instance
  * @description log error
  * @return {Object} normalized error log object
  * @since 0.1.0
@@ -158,23 +180,20 @@ export const normalizeLog = log => {
  * //=> { level: 'error', timestamp: '2019-04-10T13:37:35.643Z', ...}
  *
  */
-export const error = errorLog => {
+export const error = log => {
   // obtain logger
   logger = createLogger();
 
-  // ensure logging enabled
-  const isEnabled = isLoggingEnabled() && isFunction(logger.error);
-
   // normalize log
   const defaults = { level: 'error' };
-  const log = mergeObjects(defaults, normalizeLog(errorLog));
+  const normalized = mergeObjects(defaults, normalizeLog(log));
 
-  if (isEnabled) {
-    logger.error(log);
+  if (canLog('error')) {
+    logger.error(normalized);
   }
 
   // return normalized log structure
-  return log;
+  return normalized;
 };
 
 export const warn = () => {};
