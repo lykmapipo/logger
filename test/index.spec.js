@@ -13,6 +13,7 @@ import {
 describe('logger', () => {
   beforeEach(() => {
     disposeLogger();
+    process.env.LOGGER_LOG_LEVEL = 'silly';
   });
 
   it('should expose log helpers', () => {
@@ -48,5 +49,6 @@ describe('logger', () => {
 
   after(() => {
     disposeLogger();
+    delete process.env.LOGGER_LOG_LEVEL;
   });
 });

@@ -1,4 +1,5 @@
 import { createLogger as buildLogger, transports } from 'winston';
+import { getString } from '@lykmapipo/env';
 
 // ref logger instance
 let logger;
@@ -21,7 +22,7 @@ let logger;
  *
  * const logger = createLogger(customLogger);
  * //=> Logger {}
- * 
+ *
  */
 export const createLogger = customLogger => {
   // create logger
@@ -32,8 +33,9 @@ export const createLogger = customLogger => {
     }
     // use library logger
     else {
+      const LOGGER_LOG_LEVEL = getString('LOGGER_LOG_LEVEL', 'silly');
       logger = buildLogger({
-        level: 'silly',
+        level: LOGGER_LOG_LEVEL,
         transports: [new transports.Console()],
       });
       // set custom looger id
