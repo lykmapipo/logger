@@ -328,5 +328,37 @@ export const debug = log => {
   return normalized;
 };
 
-export const silly = () => {};
+/**
+ * @function silly
+ * @name silly
+ * @param {Object} log valid silly log
+ * @description log silly
+ * @return {Object} normalized silly log object
+ * @since 0.1.0
+ * @version 0.1.0
+ * @static
+ * @public
+ * @example
+ *
+ * import { silly } from '@lykmapipo/logger';
+ * const log = silly(log);
+ * //=> { level: 'silly', timestamp: '2019-04-10T13:37:35.643Z', ...}
+ *
+ */
+export const silly = log => {
+  // obtain logger
+  logger = createLogger();
+
+  // normalize log
+  const defaults = { level: 'silly' };
+  const normalized = mergeObjects(defaults, normalizeLog(log));
+
+  if (canLog('silly')) {
+    logger.silly(normalized);
+  }
+
+  // return normalized log structure
+  return normalized;
+};
+
 export const log = () => {};

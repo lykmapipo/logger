@@ -126,6 +126,14 @@ describe('logger', () => {
     expect(log.timestamp).to.exist;
   });
 
+  it('should log silly', () => {
+    const log = silly({ message: 'Hello' });
+    expect(log).to.exist;
+    expect(log.level).to.be.equal('silly');
+    expect(log.message).to.be.equal('Hello');
+    expect(log.timestamp).to.exist;
+  });
+
   after(() => {
     disposeLogger();
     delete process.env.LOGGER_LOG_LEVEL;
