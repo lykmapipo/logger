@@ -4,6 +4,7 @@ import {
   createWinstonLogger,
   createLogger,
   disposeLogger,
+  normalizeLog,
   error,
   warn,
   info,
@@ -24,6 +25,7 @@ describe('logger', () => {
     expect(createWinstonLogger).to.exist.and.to.be.a('function');
     expect(createLogger).to.exist.and.to.be.a('function');
     expect(disposeLogger).to.exist.and.to.be.a('function');
+    expect(normalizeLog).to.exist.and.to.be.a('function');
     expect(error).to.exist.and.to.be.a('function');
     expect(warn).to.exist.and.to.be.a('function');
     expect(info).to.exist.and.to.be.a('function');
@@ -60,6 +62,22 @@ describe('logger', () => {
     expect(logger).to.exist;
     const disposed = disposeLogger();
     expect(disposed).to.not.exist;
+  });
+
+  it('should normalize normal log', () => {
+    const log = normalizeLog({ message: 'Hello' });
+    expect(log).to.exist;
+    expect(log.level).to.be.equal('info');
+    expect(log.message).to.be.equal('Hello');
+    expect(log.timestamp).to.exist;
+  });
+
+  it('should normalize error log', () => {
+    const log = normalizeLog(new Error('Invalid Arguments'));
+    expect(log).to.exist;
+    expect(log.level).to.be.equal('error');
+    expect(log.message).to.be.equal('Invalid Arguments');
+    expect(log.timestamp).to.exist;
   });
 
   after(() => {

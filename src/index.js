@@ -1,5 +1,7 @@
-import { createLogger as buildLogger, transports } from 'winston';
+import { isError } from 'lodash';
 import { getBoolean, getString } from '@lykmapipo/env';
+import { mergeObjects, mapErrorToObject } from '@lykmapipo/common';
+import { createLogger as buildLogger, transports } from 'winston';
 
 // ref logger instance
 let logger;
@@ -101,6 +103,43 @@ export const createLogger = customLogger => {
 export const disposeLogger = () => {
   logger = null;
   return logger;
+};
+
+/**
+ * @function normalizeLog
+ * @name normalizeLog
+ * @param {Object|Error} log valid log object
+ * @description normalize log structure to simple logger-able object
+ * @return {Object} normalized log object
+ * @since 0.1.0
+ * @version 0.1.0
+ * @static
+ * @public
+ * @example
+ *
+ * import { normalizeLog } from '@lykmapipo/logger';
+ * const log = normalizeLog(log);
+ * //=> { level: 'info', timestamp: '2019-04-10T13:37:35.643Z', ...}
+ *
+ * import { normalizeLog } from '@lykmapipo/logger';
+ * const log = normalizeLog(error);
+ * //=> { level: 'error', timestamp: '2019-04-10T13:37:35.643Z', ...}
+ *
+ */
+export const normalizeLog = log => {
+  // defaults
+  const defaults = { level: 'info', timestamp: new Date() };
+
+  // normalize error log
+  if (isError(log)) {
+    let errorLog = mapErrorToObject(log, { stack: true });
+    errorLog = mergeObjects(defaults, { level: 'error' }, errorLog);
+    return errorLog;
+  }
+
+  // normalize normal log
+  const normalLog = mergeObjects(defaults, log);
+  return normalLog;
 };
 
 export const error = () => {};
