@@ -1,3 +1,9 @@
+#### 0.2.0 (2019-04-10)
+
+##### New Features
+
+*  use custom format with metadata ([1104681c](https://github.com/lykmapipo/logger/commit/1104681c798f9f352b483c7e2fb25907e4e2f727))
+
 #### 0.1.0 (2019-04-10)
 
 ##### Chores
