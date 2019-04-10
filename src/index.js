@@ -360,5 +360,3 @@ export const silly = log => {
   // return normalized log structure
   return normalized;
 };
-
-export const log = () => {};
