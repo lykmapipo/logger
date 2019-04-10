@@ -166,7 +166,7 @@ export const normalizeLog = log => {
 /**
  * @function error
  * @name error
- * @param {Error} log valid error instance
+ * @param {Error} log valid error log
  * @description log error
  * @return {Object} normalized error log object
  * @since 0.1.0
@@ -196,7 +196,39 @@ export const error = log => {
   return normalized;
 };
 
-export const warn = () => {};
+/**
+ * @function warn
+ * @name warn
+ * @param {Object} log valid warn log
+ * @description log warn
+ * @return {Object} normalized warn log object
+ * @since 0.1.0
+ * @version 0.1.0
+ * @static
+ * @public
+ * @example
+ *
+ * import { warn } from '@lykmapipo/logger';
+ * const log = warn(log);
+ * //=> { level: 'warn', timestamp: '2019-04-10T13:37:35.643Z', ...}
+ *
+ */
+export const warn = log => {
+  // obtain logger
+  logger = createLogger();
+
+  // normalize log
+  const defaults = { level: 'warn' };
+  const normalized = mergeObjects(defaults, normalizeLog(log));
+
+  if (canLog('warn')) {
+    logger.warn(normalized);
+  }
+
+  // return normalized log structure
+  return normalized;
+};
+
 export const info = () => {};
 export const verbose = () => {};
 export const debug = () => {};

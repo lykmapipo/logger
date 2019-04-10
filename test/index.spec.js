@@ -94,6 +94,14 @@ describe('logger', () => {
     expect(log.name).to.exist;
   });
 
+  it('should log warnings', () => {
+    const log = warn({ message: 'Hello' });
+    expect(log).to.exist;
+    expect(log.level).to.be.equal('warn');
+    expect(log.message).to.be.equal('Hello');
+    expect(log.timestamp).to.exist;
+  });
+
   after(() => {
     disposeLogger();
     delete process.env.LOGGER_LOG_LEVEL;
