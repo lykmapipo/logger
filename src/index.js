@@ -262,7 +262,39 @@ export const info = log => {
   return normalized;
 };
 
-export const verbose = () => {};
+/**
+ * @function verbose
+ * @name verbose
+ * @param {Object} log valid verbose log
+ * @description log verbose
+ * @return {Object} normalized verbose log object
+ * @since 0.1.0
+ * @version 0.1.0
+ * @static
+ * @public
+ * @example
+ *
+ * import { verbose } from '@lykmapipo/logger';
+ * const log = verbose(log);
+ * //=> { level: 'verbose', timestamp: '2019-04-10T13:37:35.643Z', ...}
+ *
+ */
+export const verbose = log => {
+  // obtain logger
+  logger = createLogger();
+
+  // normalize log
+  const defaults = { level: 'verbose' };
+  const normalized = mergeObjects(defaults, normalizeLog(log));
+
+  if (canLog('verbose')) {
+    logger.verbose(normalized);
+  }
+
+  // return normalized log structure
+  return normalized;
+};
+
 export const debug = () => {};
 export const silly = () => {};
 export const log = () => {};

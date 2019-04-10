@@ -110,6 +110,14 @@ describe('logger', () => {
     expect(log.timestamp).to.exist;
   });
 
+  it('should log verbose', () => {
+    const log = verbose({ message: 'Hello' });
+    expect(log).to.exist;
+    expect(log.level).to.be.equal('verbose');
+    expect(log.message).to.be.equal('Hello');
+    expect(log.timestamp).to.exist;
+  });
+
   after(() => {
     disposeLogger();
     delete process.env.LOGGER_LOG_LEVEL;
