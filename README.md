@@ -20,7 +20,7 @@ npm install --save @lykmapipo/logger
 ## Usage
 
 ```js
-const { info, error } = require('@lykmapipo/logger');
+const { error, warn, info, verbose, debug, silly } = require('@lykmapipo/logger');
 
 info('Server Starting', { port: 4000 });
 
