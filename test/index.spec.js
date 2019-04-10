@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import {
+  isLoggingEnabled,
   createWinstonLogger,
   createLogger,
   disposeLogger,
@@ -14,10 +15,12 @@ import {
 describe('logger', () => {
   beforeEach(() => {
     disposeLogger();
-    process.env.LOGGER_LOG_LEVEL = 'silly';
+    delete process.env.LOGGER_LOG_ENABLED;
+    delete process.env.LOGGER_LOG_LEVEL;
   });
 
   it('should expose log helpers', () => {
+    expect(isLoggingEnabled).to.exist.and.to.be.a('function');
     expect(createWinstonLogger).to.exist.and.to.be.a('function');
     expect(createLogger).to.exist.and.to.be.a('function');
     expect(disposeLogger).to.exist.and.to.be.a('function');
@@ -27,6 +30,16 @@ describe('logger', () => {
     expect(verbose).to.exist.and.to.be.a('function');
     expect(debug).to.exist.and.to.be.a('function');
     expect(silly).to.exist.and.to.be.a('function');
+  });
+
+  it('should check if logging enabled', () => {
+    expect(isLoggingEnabled()).to.be.true;
+
+    process.env.LOGGER_LOG_ENABLED = false;
+    expect(isLoggingEnabled()).to.be.false;
+
+    process.env.LOGGER_LOG_ENABLED = true;
+    expect(isLoggingEnabled()).to.be.true;
   });
 
   it('should create logger instance', () => {

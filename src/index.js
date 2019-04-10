@@ -1,8 +1,29 @@
 import { createLogger as buildLogger, transports } from 'winston';
-import { getString } from '@lykmapipo/env';
+import { getBoolean, getString } from '@lykmapipo/env';
 
 // ref logger instance
 let logger;
+
+/**
+ * @function isLoggingEnabled
+ * @name isLoggingEnabled
+ * @description check if logging is enabled
+ * @return {Boolean} whether logging is enabled
+ * @since 0.1.0
+ * @version 0.1.0
+ * @static
+ * @public
+ * @example
+ *
+ * import { isLoggingEnabled } from '@lykmapipo/logger';
+ * const enabled = isLoggingEnabled();
+ * //=> true
+ *
+ */
+export const isLoggingEnabled = () => {
+  const isEnabled = getBoolean('LOGGER_LOG_ENABLED', true);
+  return isEnabled;
+};
 
 /**
  * @function createWinstonLogger
