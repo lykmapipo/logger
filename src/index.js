@@ -1,7 +1,7 @@
 import { isError, isFunction } from 'lodash';
 import { getBoolean, getString } from '@lykmapipo/env';
 import { mergeObjects, mapErrorToObject } from '@lykmapipo/common';
-import { createLogger as buildLogger, transports } from 'winston';
+import { createLogger as buildLogger, transports, format } from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
 
 // ref logger instance
@@ -88,6 +88,21 @@ export const createWinstonLogger = () => {
   // create winston logger
   const winston = buildLogger({
     level: LOGGER_LOG_LEVEL,
+    format: format.combine(
+      format.timestamp(),
+      format.metadata({
+        fillExcept: [
+          'level',
+          'message',
+          'timestamp',
+          'correlation',
+          'event',
+          'label',
+          'tags',
+        ],
+      }),
+      format.json()
+    ),
     transports: logTransports,
   });
 
