@@ -121,7 +121,6 @@ export const disposeLogger = () => {
  * const log = normalizeLog(log);
  * //=> { level: 'info', timestamp: '2019-04-10T13:37:35.643Z', ...}
  *
- * import { normalizeLog } from '@lykmapipo/logger';
  * const log = normalizeLog(error);
  * //=> { level: 'error', timestamp: '2019-04-10T13:37:35.643Z', ...}
  *
