@@ -22,7 +22,7 @@ npm install --save @lykmapipo/logger
 ```js
 const { error, warn, info, verbose, debug, silly } = require('@lykmapipo/logger');
 
-info('Server Starting', { port: 4000 });
+info({ message: 'Server Starting', port: 4000 });
 
 error(new Error('Invalid Arguments'));
 ```
