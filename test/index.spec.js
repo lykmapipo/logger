@@ -94,10 +94,18 @@ describe('logger', () => {
     expect(log.name).to.exist;
   });
 
-  it('should log warnings', () => {
+  it('should log warn', () => {
     const log = warn({ message: 'Hello' });
     expect(log).to.exist;
     expect(log.level).to.be.equal('warn');
+    expect(log.message).to.be.equal('Hello');
+    expect(log.timestamp).to.exist;
+  });
+
+  it('should log info', () => {
+    const log = info({ message: 'Hello' });
+    expect(log).to.exist;
+    expect(log.level).to.be.equal('info');
     expect(log.message).to.be.equal('Hello');
     expect(log.timestamp).to.exist;
   });

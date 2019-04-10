@@ -229,7 +229,39 @@ export const warn = log => {
   return normalized;
 };
 
-export const info = () => {};
+/**
+ * @function info
+ * @name info
+ * @param {Object} log valid info log
+ * @description log info
+ * @return {Object} normalized info log object
+ * @since 0.1.0
+ * @version 0.1.0
+ * @static
+ * @public
+ * @example
+ *
+ * import { info } from '@lykmapipo/logger';
+ * const log = info(log);
+ * //=> { level: 'info', timestamp: '2019-04-10T13:37:35.643Z', ...}
+ *
+ */
+export const info = log => {
+  // obtain logger
+  logger = createLogger();
+
+  // normalize log
+  const defaults = { level: 'info' };
+  const normalized = mergeObjects(defaults, normalizeLog(log));
+
+  if (canLog('info')) {
+    logger.info(normalized);
+  }
+
+  // return normalized log structure
+  return normalized;
+};
+
 export const verbose = () => {};
 export const debug = () => {};
 export const silly = () => {};
