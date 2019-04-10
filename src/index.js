@@ -1,4 +1,4 @@
-import { isError } from 'lodash';
+import { isError, isFunction } from 'lodash';
 import { getBoolean, getString } from '@lykmapipo/env';
 import { mergeObjects, mapErrorToObject } from '@lykmapipo/common';
 import { createLogger as buildLogger, transports } from 'winston';
@@ -141,9 +141,44 @@ export const normalizeLog = log => {
   return normalLog;
 };
 
-export const error = () => {};
+/**
+ * @function error
+ * @name error
+ * @param {Error} errorLog valid error instance
+ * @description log error
+ * @return {Object} normalized error log object
+ * @since 0.1.0
+ * @version 0.1.0
+ * @static
+ * @public
+ * @example
+ *
+ * import { error } from '@lykmapipo/logger';
+ * const log = error(log);
+ * //=> { level: 'error', timestamp: '2019-04-10T13:37:35.643Z', ...}
+ *
+ */
+export const error = errorLog => {
+  // obtain logger
+  logger = createLogger();
+
+  // ensure logging enabled
+  const isEnabled = isLoggingEnabled() && isFunction(logger.error);
+
+  // normalize log
+  const log = normalizeLog(errorLog);
+
+  if (isEnabled) {
+    logger.error(log);
+  }
+
+  // return normalized log structure
+  return log;
+};
+
 export const warn = () => {};
 export const info = () => {};
 export const verbose = () => {};
 export const debug = () => {};
 export const silly = () => {};
+export const log = () => {};

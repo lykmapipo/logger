@@ -80,6 +80,14 @@ describe('logger', () => {
     expect(log.timestamp).to.exist;
   });
 
+  it('should log error', () => {
+    const log = error(new Error('Invalid Arguments'));
+    expect(log).to.exist;
+    expect(log.level).to.be.equal('error');
+    expect(log.message).to.be.equal('Invalid Arguments');
+    expect(log.timestamp).to.exist;
+  });
+
   after(() => {
     disposeLogger();
     delete process.env.LOGGER_LOG_LEVEL;
