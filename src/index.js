@@ -73,7 +73,7 @@ export const createWinstonLogger = () => {
   const LOGGER_USE_FILE = getString('LOGGER_USE_FILE', true);
   const LOGGER_LOG_PATH = getString('LOGGER_LOG_PATH', './logs/app-%DATE%.log');
 
-  // create transaports
+  // create log transports
   let logTransports = [];
   if (LOGGER_USE_CONSOLE) {
     logTransports = [...logTransports, new transports.Console()];
