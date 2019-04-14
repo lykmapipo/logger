@@ -1,3 +1,9 @@
+#### 0.2.1 (2019-04-14)
+
+##### Chores
+
+*  force latest dependencies ([64b38c4f](https://github.com/lykmapipo/logger/commit/64b38c4f3854481a34e56a7f88b5f69bc6a111cd))
+
 #### 0.2.0 (2019-04-10)
 
 ##### New Features
