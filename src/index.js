@@ -423,5 +423,5 @@ export const silly = log => {
  *
  */
 export const stream = {
-  write: message => info({ message }),
+  write: message => info({ message: message.trim() }),
 };
