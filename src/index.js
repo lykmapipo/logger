@@ -1,5 +1,5 @@
-import { isError, isFunction } from 'lodash';
-import { getBoolean, getString } from '@lykmapipo/env';
+import { isError, isFunction, omit } from 'lodash';
+import { getBoolean, getString, getStrings } from '@lykmapipo/env';
 import { mergeObjects, mapErrorToObject } from '@lykmapipo/common';
 import { createLogger as buildLogger, transports, format } from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
@@ -170,7 +170,7 @@ export const disposeLogger = () => {
  * @description normalize log structure to simple logger-able object
  * @return {Object} normalized log object
  * @since 0.1.0
- * @version 0.1.0
+ * @version 0.2.0
  * @static
  * @public
  * @example
@@ -195,7 +195,14 @@ export const normalizeLog = log => {
   }
 
   // normalize normal log
-  const normalLog = mergeObjects(defaults, log);
+  let normalLog = mergeObjects(defaults, log);
+
+  // remove ignored fields
+  let ignoredFields = ['password', 'secret', 'token', 'client_secret'];
+  ignoredFields = getStrings('LOGGER_LOG_IGNORE', ignoredFields);
+  normalLog = mergeObjects(omit(normalLog, ...ignoredFields));
+
+  // return normalized log
   return normalLog;
 };
 

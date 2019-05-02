@@ -82,6 +82,15 @@ describe('logger', () => {
     expect(log.timestamp).to.exist;
   });
 
+  it('should remove ignored fields', () => {
+    const log = normalizeLog({ message: 'Hello', password: '1234' });
+    expect(log).to.exist;
+    expect(log.level).to.be.equal('info');
+    expect(log.message).to.be.equal('Hello');
+    expect(log.timestamp).to.exist;
+    expect(log.password).to.not.exist;
+  });
+
   it('should log error', () => {
     const log = error(new Error('Invalid Arguments'));
     expect(log).to.exist;

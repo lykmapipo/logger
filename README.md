@@ -34,6 +34,7 @@ LOGGER_LOG_LEVEL=silly
 LOGGER_USE_CONSOLE=true
 LOGGER_USE_FILE=true
 LOGGER_LOG_PATH=./logs/app-%DATE%.log
+LOGGER_LOG_IGNORE=password,apiKey,secret,client_secret
 ```
 
 
