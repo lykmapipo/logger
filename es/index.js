@@ -1,5 +1,5 @@
-import { isFunction, isError } from 'lodash';
-import { getBoolean, getString } from '@lykmapipo/env';
+import { isFunction, isError, omit } from 'lodash';
+import { getBoolean, getString, getStrings } from '@lykmapipo/env';
 import { mapErrorToObject, mergeObjects } from '@lykmapipo/common';
 import { transports, createLogger as createLogger$1, format } from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
@@ -170,7 +170,7 @@ const disposeLogger = () => {
  * @description normalize log structure to simple logger-able object
  * @return {Object} normalized log object
  * @since 0.1.0
- * @version 0.1.0
+ * @version 0.2.0
  * @static
  * @public
  * @example
@@ -195,7 +195,14 @@ const normalizeLog = log => {
   }
 
   // normalize normal log
-  const normalLog = mergeObjects(defaults, log);
+  let normalLog = mergeObjects(defaults, log);
+
+  // remove ignored fields
+  let ignoredFields = ['password', 'secret', 'token', 'client_secret'];
+  ignoredFields = getStrings('LOGGER_LOG_IGNORE', ignoredFields);
+  normalLog = mergeObjects(omit(normalLog, ...ignoredFields));
+
+  // return normalized log
   return normalLog;
 };
 
@@ -397,4 +404,26 @@ const silly = log => {
   return normalized;
 };
 
-export { canLog, createLogger, createWinstonLogger, debug, disposeLogger, error, info, isLoggingEnabled, normalizeLog, silly, verbose, warn };
+/**
+ * @function stream
+ * @name stream
+ * @description expose log stream for use with morgan logger
+ * @return {Object} normalized stream log object
+ * @since 0.1.0
+ * @version 0.3.0
+ * @static
+ * @public
+ * @example
+ *
+ * import { stream } from '@lykmapipo/logger';
+ * import morgan from 'morgan';
+ *
+ * app.use(morgan('combined'), { stream });
+ * //=> { level: 'info', timestamp: '2019-04-10T13:37:35.643Z', ...}
+ *
+ */
+const stream = {
+  write: message => info({ message: message.trim() }),
+};
+
+export { canLog, createLogger, createWinstonLogger, debug, disposeLogger, error, info, isLoggingEnabled, normalizeLog, silly, stream, verbose, warn };

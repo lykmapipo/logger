@@ -379,5 +379,33 @@ const log = silly(log);
 
 
 
+#### stream() 
+
+expose log stream for use with morgan logger
+
+
+
+
+
+
+##### Examples
+
+```javascript
+
+import { stream } from '@lykmapipo/logger';
+import morgan from 'morgan';
+
+app.use(morgan('combined'), { stream });
+//=> { level: 'info', timestamp: '2019-04-10T13:37:35.643Z', ...}
+```
+
+
+##### Returns
+
+
+- `Object`  normalized stream log object
+
+
+
 
 *Documentation generated with [doxdox](https://github.com/neogeek/doxdox).*

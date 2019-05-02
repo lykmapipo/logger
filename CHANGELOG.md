@@ -1,3 +1,14 @@
+#### 0.3.0 (2019-05-02)
+
+##### New Features
+
+* **morgan:**  add morgan stream for express logging ([490426c5](https://github.com/lykmapipo/logger/commit/490426c517f28f22cd0b5022d139af8e27a96c23))
+*  add ignored fields on logs ([4553f5a1](https://github.com/lykmapipo/logger/commit/4553f5a1e10d06906f077ba4b609f7d5d424d0bc))
+
+##### Bug Fixes
+
+* **morgan:**  trim message before log ([40d09ac0](https://github.com/lykmapipo/logger/commit/40d09ac082ddfd9da663c08127673708aee6d3ef))
+
 #### 0.2.2 (2019-04-30)
 
 ##### Chores
