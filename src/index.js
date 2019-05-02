@@ -403,3 +403,25 @@ export const silly = log => {
   // return normalized log structure
   return normalized;
 };
+
+/**
+ * @function stream
+ * @name stream
+ * @description expose log stream for use with morgan logger
+ * @return {Object} normalized stream log object
+ * @since 0.1.0
+ * @version 0.3.0
+ * @static
+ * @public
+ * @example
+ *
+ * import { stream } from '@lykmapipo/logger';
+ * import morgan from 'morgan';
+ *
+ * app.use(morgan('combined'), { stream });
+ * //=> { level: 'info', timestamp: '2019-04-10T13:37:35.643Z', ...}
+ *
+ */
+export const stream = {
+  write: message => info({ message }),
+};

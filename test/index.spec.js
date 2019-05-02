@@ -12,6 +12,7 @@ import {
   verbose,
   debug,
   silly,
+  stream,
 } from '../src/index';
 
 describe('logger', () => {
@@ -139,6 +140,14 @@ describe('logger', () => {
     const log = silly({ message: 'Hello' });
     expect(log).to.exist;
     expect(log.level).to.be.equal('silly');
+    expect(log.message).to.be.equal('Hello');
+    expect(log.timestamp).to.exist;
+  });
+
+  it('should expose stream for morgan usage', () => {
+    const log = stream.write('Hello');
+    expect(log).to.exist;
+    expect(log.level).to.be.equal('info');
     expect(log.message).to.be.equal('Hello');
     expect(log.timestamp).to.exist;
   });
