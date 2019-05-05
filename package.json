@@ -66,11 +66,11 @@
     "eslint-plugin-prettier": "^3.0.1",
     "generate-changelog": "^1.7.1",
     "husky": "^2.2.0",
-    "lint-staged": "^8.1.5",
+    "lint-staged": "^8.1.6",
     "mocha": "^6.1.4",
     "prettier": "^1.17.0",
     "rimraf": "^2.6.3",
-    "rollup": "^1.10.1",
+    "rollup": "^1.11.3",
     "std-mocks": "^1.0.1"
   },
   "peerDependencies": {},
