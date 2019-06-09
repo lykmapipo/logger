@@ -1,6 +1,6 @@
 {
   "name": "@lykmapipo/logger",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Naive logging helpers",
   "main": "lib/index.js",
   "module": "es/index.js",
