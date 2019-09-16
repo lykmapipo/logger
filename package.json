@@ -58,7 +58,7 @@
     "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^3.0.2",
     "doxdox": "^3.0.0",
-    "eslint": "^6.3.0",
+    "eslint": "^6.4.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "^6.3.0",
     "eslint-plugin-import": "^2.18.2",
@@ -71,7 +71,7 @@
     "mocha": "^6.2.0",
     "prettier": "^1.18.2",
     "rimraf": "^3.0.0",
-    "rollup": "^1.21.2",
+    "rollup": "^1.21.3",
     "shelljs": "^0.8.3",
     "std-mocks": "^1.0.1"
   },
