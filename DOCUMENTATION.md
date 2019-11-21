@@ -145,7 +145,7 @@ const logger = disposeLogger();
 
 
 
-#### normalizeLog(log) 
+#### normalizeLog(params) 
 
 normalize log structure to simple logger-able object
 
@@ -156,7 +156,7 @@ normalize log structure to simple logger-able object
 
 | Name | Type | Description |  |
 | ---- | ---- | ----------- | -------- |
-| log | `Object` `Error`  | valid log object | &nbsp; |
+| params | `String` `Object` `Error`  | valid log params | &nbsp; |
 
 
 
@@ -181,7 +181,7 @@ const log = normalizeLog(error);
 
 
 
-#### error(log) 
+#### error(params) 
 
 log error
 
@@ -192,7 +192,7 @@ log error
 
 | Name | Type | Description |  |
 | ---- | ---- | ----------- | -------- |
-| log | `Error`  | valid error log | &nbsp; |
+| params | `String` `Object` `Error`  | valid log params | &nbsp; |
 
 
 
@@ -214,7 +214,7 @@ const log = error(log);
 
 
 
-#### warn(log) 
+#### warn(params) 
 
 log warn
 
@@ -225,7 +225,7 @@ log warn
 
 | Name | Type | Description |  |
 | ---- | ---- | ----------- | -------- |
-| log | `Object`  | valid warn log | &nbsp; |
+| params | `String` `Object` `Error`  | valid log params | &nbsp; |
 
 
 
@@ -247,7 +247,7 @@ const log = warn(log);
 
 
 
-#### info(log) 
+#### info(params) 
 
 log info
 
@@ -258,7 +258,7 @@ log info
 
 | Name | Type | Description |  |
 | ---- | ---- | ----------- | -------- |
-| log | `Object`  | valid info log | &nbsp; |
+| params | `String` `Object` `Error`  | valid log params | &nbsp; |
 
 
 
@@ -280,7 +280,7 @@ const log = info(log);
 
 
 
-#### verbose(log) 
+#### verbose(params) 
 
 log verbose
 
@@ -291,7 +291,7 @@ log verbose
 
 | Name | Type | Description |  |
 | ---- | ---- | ----------- | -------- |
-| log | `Object`  | valid verbose log | &nbsp; |
+| params | `String` `Object` `Error`  | valid log params | &nbsp; |
 
 
 
@@ -313,7 +313,7 @@ const log = verbose(log);
 
 
 
-#### debug(log) 
+#### debug(params) 
 
 log debug
 
@@ -324,7 +324,7 @@ log debug
 
 | Name | Type | Description |  |
 | ---- | ---- | ----------- | -------- |
-| log | `Object`  | valid debug log | &nbsp; |
+| params | `String` `Object` `Error`  | valid log params | &nbsp; |
 
 
 
@@ -346,7 +346,7 @@ const log = debug(log);
 
 
 
-#### silly(log) 
+#### silly(params) 
 
 log silly
 
@@ -357,7 +357,7 @@ log silly
 
 | Name | Type | Description |  |
 | ---- | ---- | ----------- | -------- |
-| log | `Object`  | valid silly log | &nbsp; |
+| params | `String` `Object` `Error`  | valid log params | &nbsp; |
 
 
 

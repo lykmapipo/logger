@@ -1,3 +1,13 @@
+#### 0.4.0 (2019-11-21)
+
+##### Chores
+
+* **deps:**  force latest version & audit fix ([91540300](https://github.com/lykmapipo/logger/commit/915403005fe6cd652e8df6f5e81e4aa93dcf1043))
+
+##### New Features
+
+*  support message and varargs on logging ([5f8ddef9](https://github.com/lykmapipo/logger/commit/5f8ddef96da0c5367f30420efa4edde3a6efc21c))
+
 #### 0.3.17 (2019-11-14)
 
 ##### Chores
