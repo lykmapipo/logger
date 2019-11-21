@@ -1,3 +1,10 @@
+#### 0.5.0 (2019-11-21)
+
+##### New Features
+
+*  add audit log level ([47f68cec](https://github.com/lykmapipo/logger/commit/47f68cece0c57678fc238e4fc81fbf87a31077f8))
+*  add event custom log level ([286ebe29](https://github.com/lykmapipo/logger/commit/286ebe298fe4bb7cef1a04b25adfaa5c36e8e56c))
+
 #### 0.4.0 (2019-11-21)
 
 ##### Chores

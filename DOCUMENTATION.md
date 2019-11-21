@@ -379,6 +379,72 @@ const log = silly(log);
 
 
 
+#### event(params) 
+
+log event
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| params | `String` `Object` `Error`  | valid log params | &nbsp; |
+
+
+
+
+##### Examples
+
+```javascript
+
+import { event } from '@lykmapipo/logger';
+const log = event('user_click', params);
+//=> { level: 'event', timestamp: '2019-04-10T13:37:35.643Z', ...}
+```
+
+
+##### Returns
+
+
+- `Object`  normalized event log object
+
+
+
+#### audit(params) 
+
+log audit
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| params | `String` `Object` `Error`  | valid log params | &nbsp; |
+
+
+
+
+##### Examples
+
+```javascript
+
+import { audit } from '@lykmapipo/logger';
+const log = audit('user_edit', {from:..., to:...});
+//=> { level: 'audit', timestamp: '2019-04-10T13:37:35.643Z', ...}
+```
+
+
+##### Returns
+
+
+- `Object`  normalized audit log object
+
+
+
 #### stream() 
 
 expose log stream for use with morgan logger
