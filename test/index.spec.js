@@ -68,18 +68,46 @@ describe('logger', () => {
   });
 
   it('should normalize normal log', () => {
-    const log = normalizeLog({ message: 'Hello' });
+    let log = normalizeLog({ message: 'Hello' });
     expect(log).to.exist;
     expect(log.level).to.be.equal('info');
     expect(log.message).to.be.equal('Hello');
     expect(log.timestamp).to.exist;
+
+    log = normalizeLog('Hello');
+    expect(log).to.exist;
+    expect(log.level).to.be.equal('info');
+    expect(log.message).to.be.equal('Hello');
+    expect(log.timestamp).to.exist;
+
+    log = normalizeLog('Hello', { pid: process.pid });
+    expect(log).to.exist;
+    expect(log.level).to.be.equal('info');
+    expect(log.message).to.be.equal('Hello');
+    expect(log.pid).to.be.equal(process.pid);
+    expect(log.timestamp).to.exist;
   });
 
   it('should normalize error log', () => {
-    const log = normalizeLog(new Error('Invalid Arguments'));
+    let log = normalizeLog(new Error('Invalid Arguments'));
     expect(log).to.exist;
     expect(log.level).to.be.equal('error');
     expect(log.message).to.be.equal('Invalid Arguments');
+    expect(log.timestamp).to.exist;
+
+    log = normalizeLog('Failed', new Error('Invalid Arguments'));
+    expect(log).to.exist;
+    expect(log.level).to.be.equal('error');
+    expect(log.message).to.be.equal('Invalid Arguments');
+    expect(log.timestamp).to.exist;
+
+    log = normalizeLog('Failed', new Error('Invalid Arguments'), {
+      pid: process.id,
+    });
+    expect(log).to.exist;
+    expect(log.level).to.be.equal('error');
+    expect(log.message).to.be.equal('Invalid Arguments');
+    expect(log.pid).to.be.equal(process.id);
     expect(log.timestamp).to.exist;
   });
 
@@ -104,8 +132,24 @@ describe('logger', () => {
     expect(log.metadata.name).to.exist;
   });
 
+  it('should log error', () => {
+    const log = error('Invalid Arguments');
+    expect(log).to.exist;
+    expect(log.level).to.be.equal('error');
+    expect(log.message).to.be.equal('Invalid Arguments');
+    expect(log.timestamp).to.exist;
+  });
+
   it('should log warn', () => {
     const log = warn({ message: 'Hello' });
+    expect(log).to.exist;
+    expect(log.level).to.be.equal('warn');
+    expect(log.message).to.be.equal('Hello');
+    expect(log.timestamp).to.exist;
+  });
+
+  it('should log warn', () => {
+    const log = warn('Hello');
     expect(log).to.exist;
     expect(log.level).to.be.equal('warn');
     expect(log.message).to.be.equal('Hello');
@@ -120,8 +164,24 @@ describe('logger', () => {
     expect(log.timestamp).to.exist;
   });
 
+  it('should log info message', () => {
+    const log = info('Hello');
+    expect(log).to.exist;
+    expect(log.level).to.be.equal('info');
+    expect(log.message).to.be.equal('Hello');
+    expect(log.timestamp).to.exist;
+  });
+
   it('should log verbose', () => {
     const log = verbose({ message: 'Hello' });
+    expect(log).to.exist;
+    expect(log.level).to.be.equal('verbose');
+    expect(log.message).to.be.equal('Hello');
+    expect(log.timestamp).to.exist;
+  });
+
+  it('should log verbose', () => {
+    const log = verbose('Hello');
     expect(log).to.exist;
     expect(log.level).to.be.equal('verbose');
     expect(log.message).to.be.equal('Hello');
@@ -136,8 +196,24 @@ describe('logger', () => {
     expect(log.timestamp).to.exist;
   });
 
+  it('should log debug', () => {
+    const log = debug('Hello');
+    expect(log).to.exist;
+    expect(log.level).to.be.equal('debug');
+    expect(log.message).to.be.equal('Hello');
+    expect(log.timestamp).to.exist;
+  });
+
   it('should log silly', () => {
     const log = silly({ message: 'Hello' });
+    expect(log).to.exist;
+    expect(log.level).to.be.equal('silly');
+    expect(log.message).to.be.equal('Hello');
+    expect(log.timestamp).to.exist;
+  });
+
+  it('should log silly', () => {
+    const log = silly('Hello');
     expect(log).to.exist;
     expect(log.level).to.be.equal('silly');
     expect(log.message).to.be.equal('Hello');

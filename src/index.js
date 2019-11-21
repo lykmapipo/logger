@@ -1,4 +1,11 @@
-import { isError, isFunction, omit } from 'lodash';
+import {
+  forEach,
+  isError,
+  isFunction,
+  isPlainObject,
+  isString,
+  omit,
+} from 'lodash';
 import { getBoolean, getString, getStrings } from '@lykmapipo/env';
 import { mergeObjects, mapErrorToObject } from '@lykmapipo/common';
 import { createLogger as buildLogger, transports, format } from 'winston';
@@ -166,7 +173,7 @@ export const disposeLogger = () => {
 /**
  * @function normalizeLog
  * @name normalizeLog
- * @param {Object|Error} log valid log object
+ * @param {String|Object|Error} params valid log params
  * @description normalize log structure to simple logger-able object
  * @return {Object} normalized log object
  * @since 0.1.0
@@ -183,33 +190,42 @@ export const disposeLogger = () => {
  * //=> { level: 'error', timestamp: '2019-04-10T13:37:35.643Z', ...}
  *
  */
-export const normalizeLog = log => {
-  // defaults
-  const defaults = { level: 'info', timestamp: new Date() };
+export const normalizeLog = (...params) => {
+  // normalize args
+  let log = { level: 'info', timestamp: new Date() };
 
-  // normalize error log
-  if (isError(log)) {
-    let errorLog = mapErrorToObject(log, { stack: true });
-    errorLog = mergeObjects(defaults, { level: 'error' }, errorLog);
-    return errorLog;
-  }
+  // merge params
+  forEach([].concat([...params]), param => {
+    // pack message
+    if (isString(param)) {
+      log = mergeObjects(log, { message: param });
+    }
 
-  // normalize normal log
-  let normalLog = mergeObjects(defaults, log);
+    // pack metadata
+    if (isPlainObject(param)) {
+      log = mergeObjects(log, param);
+    }
+
+    // pack error
+    if (isError(param)) {
+      const errorLog = mapErrorToObject(param, { stack: true });
+      log = mergeObjects(log, { level: 'error' }, errorLog);
+    }
+  });
 
   // remove ignored fields
   let ignoredFields = ['password', 'secret', 'token', 'client_secret'];
   ignoredFields = getStrings('LOGGER_LOG_IGNORE', ignoredFields);
-  normalLog = mergeObjects(omit(normalLog, ...ignoredFields));
+  log = mergeObjects(omit(log, ...ignoredFields));
 
   // return normalized log
-  return normalLog;
+  return log;
 };
 
 /**
  * @function error
  * @name error
- * @param {Error} log valid error log
+ * @param {String|Object|Error} params valid log params
  * @description log error
  * @return {Object} normalized error log object
  * @since 0.1.0
@@ -223,13 +239,13 @@ export const normalizeLog = log => {
  * //=> { level: 'error', timestamp: '2019-04-10T13:37:35.643Z', ...}
  *
  */
-export const error = log => {
+export const error = (...params) => {
   // obtain logger
   logger = createLogger();
 
   // normalize log
   const defaults = { level: 'error' };
-  const normalized = mergeObjects(defaults, normalizeLog(log));
+  const normalized = mergeObjects(defaults, normalizeLog(...params));
 
   if (canLog('error')) {
     logger.error(normalized);
@@ -242,7 +258,7 @@ export const error = log => {
 /**
  * @function warn
  * @name warn
- * @param {Object} log valid warn log
+ * @param {String|Object|Error} params valid log params
  * @description log warn
  * @return {Object} normalized warn log object
  * @since 0.1.0
@@ -256,13 +272,13 @@ export const error = log => {
  * //=> { level: 'warn', timestamp: '2019-04-10T13:37:35.643Z', ...}
  *
  */
-export const warn = log => {
+export const warn = (...params) => {
   // obtain logger
   logger = createLogger();
 
   // normalize log
   const defaults = { level: 'warn' };
-  const normalized = mergeObjects(defaults, normalizeLog(log));
+  const normalized = mergeObjects(defaults, normalizeLog(...params));
 
   if (canLog('warn')) {
     logger.warn(normalized);
@@ -275,7 +291,7 @@ export const warn = log => {
 /**
  * @function info
  * @name info
- * @param {Object} log valid info log
+ * @param {String|Object|Error} params valid log params
  * @description log info
  * @return {Object} normalized info log object
  * @since 0.1.0
@@ -289,13 +305,13 @@ export const warn = log => {
  * //=> { level: 'info', timestamp: '2019-04-10T13:37:35.643Z', ...}
  *
  */
-export const info = log => {
+export const info = (...params) => {
   // obtain logger
   logger = createLogger();
 
   // normalize log
   const defaults = { level: 'info' };
-  const normalized = mergeObjects(defaults, normalizeLog(log));
+  const normalized = mergeObjects(defaults, normalizeLog(...params));
 
   if (canLog('info')) {
     logger.info(normalized);
@@ -308,7 +324,7 @@ export const info = log => {
 /**
  * @function verbose
  * @name verbose
- * @param {Object} log valid verbose log
+ * @param {String|Object|Error} params valid log params
  * @description log verbose
  * @return {Object} normalized verbose log object
  * @since 0.1.0
@@ -322,13 +338,13 @@ export const info = log => {
  * //=> { level: 'verbose', timestamp: '2019-04-10T13:37:35.643Z', ...}
  *
  */
-export const verbose = log => {
+export const verbose = (...params) => {
   // obtain logger
   logger = createLogger();
 
   // normalize log
   const defaults = { level: 'verbose' };
-  const normalized = mergeObjects(defaults, normalizeLog(log));
+  const normalized = mergeObjects(defaults, normalizeLog(...params));
 
   if (canLog('verbose')) {
     logger.verbose(normalized);
@@ -341,7 +357,7 @@ export const verbose = log => {
 /**
  * @function debug
  * @name debug
- * @param {Object} log valid debug log
+ * @param {String|Object|Error} params valid log params
  * @description log debug
  * @return {Object} normalized debug log object
  * @since 0.1.0
@@ -355,13 +371,13 @@ export const verbose = log => {
  * //=> { level: 'debug', timestamp: '2019-04-10T13:37:35.643Z', ...}
  *
  */
-export const debug = log => {
+export const debug = (...params) => {
   // obtain logger
   logger = createLogger();
 
   // normalize log
   const defaults = { level: 'debug' };
-  const normalized = mergeObjects(defaults, normalizeLog(log));
+  const normalized = mergeObjects(defaults, normalizeLog(...params));
 
   if (canLog('debug')) {
     logger.debug(normalized);
@@ -374,7 +390,7 @@ export const debug = log => {
 /**
  * @function silly
  * @name silly
- * @param {Object} log valid silly log
+ * @param {String|Object|Error} params valid log params
  * @description log silly
  * @return {Object} normalized silly log object
  * @since 0.1.0
@@ -388,13 +404,13 @@ export const debug = log => {
  * //=> { level: 'silly', timestamp: '2019-04-10T13:37:35.643Z', ...}
  *
  */
-export const silly = log => {
+export const silly = (...params) => {
   // obtain logger
   logger = createLogger();
 
   // normalize log
   const defaults = { level: 'silly' };
-  const normalized = mergeObjects(defaults, normalizeLog(log));
+  const normalized = mergeObjects(defaults, normalizeLog(...params));
 
   if (canLog('silly')) {
     logger.silly(normalized);
