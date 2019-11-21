@@ -29,6 +29,7 @@ const LOG_LEVELS = {
   debug: 5,
   silly: 6,
   event: 7,
+  audit: 9,
 };
 
 // assumed log colors
@@ -41,6 +42,7 @@ const LOG_COLORS = {
   debug: 'blue',
   silly: 'magenta',
   event: 'green',
+  audit: 'blue',
 };
 
 /**
@@ -104,7 +106,7 @@ export const canLog = level => {
  */
 export const createWinstonLogger = () => {
   // obtain configs
-  const LOGGER_LOG_LEVEL = getString('LOGGER_LOG_LEVEL', 'event');
+  const LOGGER_LOG_LEVEL = getString('LOGGER_LOG_LEVEL', 'audit');
   const LOGGER_USE_CONSOLE = getString('LOGGER_USE_CONSOLE', true);
   const LOGGER_USE_FILE = getString('LOGGER_USE_FILE', true);
   const LOGGER_LOG_PATH = getString('LOGGER_LOG_PATH', './logs/app-%DATE%.log');
@@ -459,7 +461,7 @@ export const silly = (...params) => {
  * @param {String|Object|Error} params valid log params
  * @description log event
  * @return {Object} normalized event log object
- * @since 0.1.0
+ * @since 0.5.0
  * @version 0.1.0
  * @static
  * @public
@@ -480,6 +482,39 @@ export const event = (...params) => {
 
   if (canLog('event')) {
     logger.event(normalized);
+  }
+
+  // return normalized log structure
+  return normalized;
+};
+
+/**
+ * @function audit
+ * @name audit
+ * @param {String|Object|Error} params valid log params
+ * @description log audit
+ * @return {Object} normalized audit log object
+ * @since 0.1.0
+ * @version 0.1.0
+ * @static
+ * @public
+ * @example
+ *
+ * import { audit } from '@lykmapipo/logger';
+ * const log = audit('user_edit', {from:..., to:...});
+ * //=> { level: 'audit', timestamp: '2019-04-10T13:37:35.643Z', ...}
+ *
+ */
+export const audit = (...params) => {
+  // obtain logger
+  logger = createLogger();
+
+  // normalize log
+  const defaults = { level: 'audit' };
+  const normalized = mergeObjects(defaults, normalizeLog(...params));
+
+  if (canLog('audit')) {
+    logger.audit(normalized);
   }
 
   // return normalized log structure

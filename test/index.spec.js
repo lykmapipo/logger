@@ -13,6 +13,7 @@ import {
   debug,
   silly,
   event,
+  audit,
   stream,
 } from '../src';
 
@@ -198,7 +199,7 @@ describe('logger', () => {
   });
 
   it('should log debug', () => {
-    const log = debug('Hello');
+    const log = debug('Hello', { pid: process.pid });
     expect(log).to.exist;
     expect(log.level).to.be.equal('debug');
     expect(log.message).to.be.equal('Hello');
@@ -221,19 +222,27 @@ describe('logger', () => {
     expect(log.timestamp).to.exist;
   });
 
-  it('should expose stream for morgan usage', () => {
-    const log = stream.write('Hello');
-    expect(log).to.exist;
-    expect(log.level).to.be.equal('info');
-    expect(log.message).to.be.equal('Hello');
-    expect(log.timestamp).to.exist;
-  });
-
   it('should log event', () => {
     const log = event('user_click', { pid: process.pid });
     expect(log).to.exist;
     expect(log.level).to.be.equal('event');
     expect(log.message).to.be.equal('user_click');
+    expect(log.timestamp).to.exist;
+  });
+
+  it('should log audit', () => {
+    const log = audit('user_edit', { from: { age: 14 }, to: { age: 15 } });
+    expect(log).to.exist;
+    expect(log.level).to.be.equal('audit');
+    expect(log.message).to.be.equal('user_edit');
+    expect(log.timestamp).to.exist;
+  });
+
+  it('should expose stream for morgan usage', () => {
+    const log = stream.write('Hello');
+    expect(log).to.exist;
+    expect(log.level).to.be.equal('info');
+    expect(log.message).to.be.equal('Hello');
     expect(log.timestamp).to.exist;
   });
 
