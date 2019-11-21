@@ -12,8 +12,9 @@ import {
   verbose,
   debug,
   silly,
+  event,
   stream,
-} from '../src/index';
+} from '../src';
 
 describe('logger', () => {
   beforeEach(() => {
@@ -102,12 +103,12 @@ describe('logger', () => {
     expect(log.timestamp).to.exist;
 
     log = normalizeLog('Failed', new Error('Invalid Arguments'), {
-      pid: process.id,
+      pid: process.pid,
     });
     expect(log).to.exist;
     expect(log.level).to.be.equal('error');
     expect(log.message).to.be.equal('Invalid Arguments');
-    expect(log.pid).to.be.equal(process.id);
+    expect(log.pid).to.be.equal(process.pid);
     expect(log.timestamp).to.exist;
   });
 
@@ -225,6 +226,14 @@ describe('logger', () => {
     expect(log).to.exist;
     expect(log.level).to.be.equal('info');
     expect(log.message).to.be.equal('Hello');
+    expect(log.timestamp).to.exist;
+  });
+
+  it('should log event', () => {
+    const log = event('user_click', { pid: process.pid });
+    expect(log).to.exist;
+    expect(log.level).to.be.equal('event');
+    expect(log.message).to.be.equal('user_click');
     expect(log.timestamp).to.exist;
   });
 

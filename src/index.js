@@ -8,11 +8,40 @@ import {
 } from 'lodash';
 import { getBoolean, getString, getStrings } from '@lykmapipo/env';
 import { mergeObjects, mapErrorToObject } from '@lykmapipo/common';
-import { createLogger as buildLogger, transports, format } from 'winston';
+import {
+  createLogger as buildLogger,
+  transports,
+  format,
+  addColors,
+} from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
 
 // ref logger instance
 let logger;
+
+// assumed log levels
+const LOG_LEVELS = {
+  error: 0,
+  warn: 1,
+  info: 2,
+  http: 3,
+  verbose: 4,
+  debug: 5,
+  silly: 6,
+  event: 7,
+};
+
+// assumed log colors
+const LOG_COLORS = {
+  error: 'red',
+  warn: 'yellow',
+  info: 'green',
+  http: 'green',
+  verbose: 'cyan',
+  debug: 'blue',
+  silly: 'magenta',
+  event: 'green',
+};
 
 /**
  * @function isLoggingEnabled
@@ -75,7 +104,7 @@ export const canLog = level => {
  */
 export const createWinstonLogger = () => {
   // obtain configs
-  const LOGGER_LOG_LEVEL = getString('LOGGER_LOG_LEVEL', 'silly');
+  const LOGGER_LOG_LEVEL = getString('LOGGER_LOG_LEVEL', 'event');
   const LOGGER_USE_CONSOLE = getString('LOGGER_USE_CONSOLE', true);
   const LOGGER_USE_FILE = getString('LOGGER_USE_FILE', true);
   const LOGGER_LOG_PATH = getString('LOGGER_LOG_PATH', './logs/app-%DATE%.log');
@@ -92,9 +121,13 @@ export const createWinstonLogger = () => {
     ];
   }
 
+  // register colors
+  addColors(LOG_COLORS);
+
   // create winston logger
   const winston = buildLogger({
     level: LOGGER_LOG_LEVEL,
+    levels: LOG_LEVELS,
     format: format.combine(
       format.timestamp(),
       format.metadata({
@@ -414,6 +447,39 @@ export const silly = (...params) => {
 
   if (canLog('silly')) {
     logger.silly(normalized);
+  }
+
+  // return normalized log structure
+  return normalized;
+};
+
+/**
+ * @function event
+ * @name event
+ * @param {String|Object|Error} params valid log params
+ * @description log event
+ * @return {Object} normalized event log object
+ * @since 0.1.0
+ * @version 0.1.0
+ * @static
+ * @public
+ * @example
+ *
+ * import { event } from '@lykmapipo/logger';
+ * const log = event('user_click', params);
+ * //=> { level: 'event', timestamp: '2019-04-10T13:37:35.643Z', ...}
+ *
+ */
+export const event = (...params) => {
+  // obtain logger
+  logger = createLogger();
+
+  // normalize log
+  const defaults = { level: 'event' };
+  const normalized = mergeObjects(defaults, normalizeLog(...params));
+
+  if (canLog('event')) {
+    logger.event(normalized);
   }
 
   // return normalized log structure
