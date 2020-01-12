@@ -1,3 +1,11 @@
+#### 0.5.2 (2020-01-12)
+
+##### Chores
+
+* **deps:**
+  *  force latest version & audit fix ([792ea9c8](https://github.com/lykmapipo/logger/commit/792ea9c856b8f6056d4ac597f468c41f911f4bb3))
+  *  force latest version & audit fix ([5c1b7cf8](https://github.com/lykmapipo/logger/commit/5c1b7cf8cd1cee7847a264e57d75e04eba46d50b))
+
 #### 0.5.1 (2019-11-29)
 
 ##### Chores
