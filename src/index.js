@@ -83,7 +83,7 @@ export const isLoggingEnabled = () => {
  * //=> true
  *
  */
-export const canLog = level => {
+export const canLog = (level) => {
   const can = logger && isFunction(logger[level]) && isLoggingEnabled();
   return can;
 };
@@ -172,7 +172,7 @@ export const createWinstonLogger = () => {
  * //=> Logger {}
  *
  */
-export const createLogger = customLogger => {
+export const createLogger = (customLogger) => {
   // create logger
   if (!logger) {
     // use custom logger or winston logger
@@ -230,7 +230,7 @@ export const normalizeLog = (...params) => {
   let log = { level: 'info', timestamp: new Date() };
 
   // merge params
-  forEach([].concat([...params]), param => {
+  forEach([].concat([...params]), (param) => {
     // pack message
     if (isString(param)) {
       log = mergeObjects(log, { message: param });
@@ -540,5 +540,5 @@ export const audit = (...params) => {
  *
  */
 export const stream = {
-  write: message => info({ message: message.trim() }),
+  write: (message) => info({ message: message.trim() }),
 };
