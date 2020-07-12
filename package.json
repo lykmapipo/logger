@@ -58,7 +58,7 @@
     "commitizen": "^4.1.2",
     "cz-conventional-changelog": "^3.2.0",
     "doxdox": "^3.0.0",
-    "eslint": "^7.3.1",
+    "eslint": "^7.4.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-import": "^2.22.0",
@@ -71,15 +71,15 @@
     "mocha": "^8.0.1",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
-    "rollup": "^2.18.1",
+    "rollup": "^2.21.0",
     "shelljs": "^0.8.4",
     "std-mocks": "^1.0.1"
   },
   "peerDependencies": {},
   "dependencies": {
-    "@lykmapipo/common": ">=0.37.1",
-    "@lykmapipo/env": ">=0.17.11",
-    "lodash": ">=4.17.15",
+    "@lykmapipo/common": ">=0.37.3",
+    "@lykmapipo/env": ">=0.17.13",
+    "lodash": ">=4.17.19",
     "winston": ">=3.3.3",
     "winston-daily-rotate-file": ">=4.5.0"
   },
