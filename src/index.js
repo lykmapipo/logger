@@ -49,7 +49,7 @@ const LOG_COLORS = {
  * @function isLoggingEnabled
  * @name isLoggingEnabled
  * @description check if logging is enabled
- * @return {Boolean} whether logging is enabled
+ * @returns {boolean} whether logging is enabled
  * @since 0.1.0
  * @version 0.1.0
  * @static
@@ -59,7 +59,6 @@ const LOG_COLORS = {
  * import { isLoggingEnabled } from '@lykmapipo/logger';
  * const enabled = isLoggingEnabled();
  * //=> true
- *
  */
 export const isLoggingEnabled = () => {
   const isEnabled = getBoolean('LOGGER_LOG_ENABLED', true);
@@ -70,8 +69,8 @@ export const isLoggingEnabled = () => {
  * @function canLog
  * @name canLog
  * @description check if logging is enabled and logger has log level
- * @param {String} level valid log level
- * @return {Boolean} whether log level can be logged
+ * @param {string} level valid log level
+ * @returns {boolean} whether log level can be logged
  * @since 0.1.0
  * @version 0.1.0
  * @static
@@ -81,7 +80,6 @@ export const isLoggingEnabled = () => {
  * import { canLog } from '@lykmapipo/logger';
  * const can = canLog('error');
  * //=> true
- *
  */
 export const canLog = (level) => {
   const can = logger && isFunction(logger[level]) && isLoggingEnabled();
@@ -92,7 +90,7 @@ export const canLog = (level) => {
  * @function createWinstonLogger
  * @name createWinstonLogger
  * @description create winston logger instance
- * @return {Object} A new instance of winston logger
+ * @returns {object} A new instance of winston logger
  * @since 0.1.0
  * @version 0.1.0
  * @static
@@ -102,7 +100,6 @@ export const canLog = (level) => {
  * import { createWinstonLogger } from '@lykmapipo/logger';
  * const logger = createWinstonLogger();
  * //=> DerivedLogger {}
- *
  */
 export const createWinstonLogger = () => {
   // obtain configs
@@ -156,8 +153,8 @@ export const createWinstonLogger = () => {
  * @function createLogger
  * @name createLogger
  * @description create logger instance if not exists
- * @param {Object} [customLogger] custom logger to use
- * @return {Object} A new instance of of logger
+ * @param {object} [customLogger] custom logger to use
+ * @returns {object} A new instance of of logger
  * @since 0.1.0
  * @version 0.1.0
  * @static
@@ -170,7 +167,6 @@ export const createWinstonLogger = () => {
  *
  * const logger = createLogger(customLogger);
  * //=> Logger {}
- *
  */
 export const createLogger = (customLogger) => {
   // create logger
@@ -189,6 +185,7 @@ export const createLogger = (customLogger) => {
  * @function disposeLogger
  * @name disposeLogger
  * @description reset current logger instance in use
+ * @returns {*} null if logger disposed successfully
  * @since 0.1.0
  * @version 0.1.0
  * @static
@@ -198,7 +195,6 @@ export const createLogger = (customLogger) => {
  * import { disposeLogger } from '@lykmapipo/logger';
  * const logger = disposeLogger();
  * //=> null
- *
  */
 export const disposeLogger = () => {
   logger = null;
@@ -208,9 +204,9 @@ export const disposeLogger = () => {
 /**
  * @function normalizeLog
  * @name normalizeLog
- * @param {String|Object|Error} params valid log params
+ * @param {string | object | Error} params valid log params
  * @description normalize log structure to simple logger-able object
- * @return {Object} normalized log object
+ * @returns {object} normalized log object
  * @since 0.1.0
  * @version 0.2.0
  * @static
@@ -223,7 +219,6 @@ export const disposeLogger = () => {
  *
  * const log = normalizeLog(error);
  * //=> { level: 'error', timestamp: '2019-04-10T13:37:35.643Z', ...}
- *
  */
 export const normalizeLog = (...params) => {
   // normalize args
@@ -260,9 +255,9 @@ export const normalizeLog = (...params) => {
 /**
  * @function error
  * @name error
- * @param {String|Object|Error} params valid log params
+ * @param {string | object | Error} params valid log params
  * @description log error
- * @return {Object} normalized error log object
+ * @returns {object} normalized error log object
  * @since 0.1.0
  * @version 0.1.0
  * @static
@@ -272,7 +267,6 @@ export const normalizeLog = (...params) => {
  * import { error } from '@lykmapipo/logger';
  * const log = error(log);
  * //=> { level: 'error', timestamp: '2019-04-10T13:37:35.643Z', ...}
- *
  */
 export const error = (...params) => {
   // obtain logger
@@ -293,9 +287,9 @@ export const error = (...params) => {
 /**
  * @function warn
  * @name warn
- * @param {String|Object|Error} params valid log params
+ * @param {string | object | Error} params valid log params
  * @description log warn
- * @return {Object} normalized warn log object
+ * @returns {object} normalized warn log object
  * @since 0.1.0
  * @version 0.1.0
  * @static
@@ -305,7 +299,6 @@ export const error = (...params) => {
  * import { warn } from '@lykmapipo/logger';
  * const log = warn(log);
  * //=> { level: 'warn', timestamp: '2019-04-10T13:37:35.643Z', ...}
- *
  */
 export const warn = (...params) => {
   // obtain logger
@@ -326,9 +319,9 @@ export const warn = (...params) => {
 /**
  * @function info
  * @name info
- * @param {String|Object|Error} params valid log params
+ * @param {string | object | Error} params valid log params
  * @description log info
- * @return {Object} normalized info log object
+ * @returns {object} normalized info log object
  * @since 0.1.0
  * @version 0.1.0
  * @static
@@ -338,7 +331,6 @@ export const warn = (...params) => {
  * import { info } from '@lykmapipo/logger';
  * const log = info(log);
  * //=> { level: 'info', timestamp: '2019-04-10T13:37:35.643Z', ...}
- *
  */
 export const info = (...params) => {
   // obtain logger
@@ -359,9 +351,9 @@ export const info = (...params) => {
 /**
  * @function verbose
  * @name verbose
- * @param {String|Object|Error} params valid log params
+ * @param {string | object | Error} params valid log params
  * @description log verbose
- * @return {Object} normalized verbose log object
+ * @returns {object} normalized verbose log object
  * @since 0.1.0
  * @version 0.1.0
  * @static
@@ -371,7 +363,6 @@ export const info = (...params) => {
  * import { verbose } from '@lykmapipo/logger';
  * const log = verbose(log);
  * //=> { level: 'verbose', timestamp: '2019-04-10T13:37:35.643Z', ...}
- *
  */
 export const verbose = (...params) => {
   // obtain logger
@@ -392,9 +383,9 @@ export const verbose = (...params) => {
 /**
  * @function debug
  * @name debug
- * @param {String|Object|Error} params valid log params
+ * @param {string | object | Error} params valid log params
  * @description log debug
- * @return {Object} normalized debug log object
+ * @returns {object} normalized debug log object
  * @since 0.1.0
  * @version 0.1.0
  * @static
@@ -404,7 +395,6 @@ export const verbose = (...params) => {
  * import { debug } from '@lykmapipo/logger';
  * const log = debug(log);
  * //=> { level: 'debug', timestamp: '2019-04-10T13:37:35.643Z', ...}
- *
  */
 export const debug = (...params) => {
   // obtain logger
@@ -425,9 +415,9 @@ export const debug = (...params) => {
 /**
  * @function silly
  * @name silly
- * @param {String|Object|Error} params valid log params
+ * @param {string | object | Error} params valid log params
  * @description log silly
- * @return {Object} normalized silly log object
+ * @returns {object} normalized silly log object
  * @since 0.1.0
  * @version 0.1.0
  * @static
@@ -437,7 +427,6 @@ export const debug = (...params) => {
  * import { silly } from '@lykmapipo/logger';
  * const log = silly(log);
  * //=> { level: 'silly', timestamp: '2019-04-10T13:37:35.643Z', ...}
- *
  */
 export const silly = (...params) => {
   // obtain logger
@@ -458,9 +447,9 @@ export const silly = (...params) => {
 /**
  * @function event
  * @name event
- * @param {String|Object|Error} params valid log params
+ * @param {string | object | Error} params valid log params
  * @description log event
- * @return {Object} normalized event log object
+ * @returns {object} normalized event log object
  * @since 0.5.0
  * @version 0.1.0
  * @static
@@ -470,7 +459,6 @@ export const silly = (...params) => {
  * import { event } from '@lykmapipo/logger';
  * const log = event('user_click', params);
  * //=> { level: 'event', timestamp: '2019-04-10T13:37:35.643Z', ...}
- *
  */
 export const event = (...params) => {
   // obtain logger
@@ -491,9 +479,9 @@ export const event = (...params) => {
 /**
  * @function audit
  * @name audit
- * @param {String|Object|Error} params valid log params
+ * @param {string | object | Error} params valid log params
  * @description log audit
- * @return {Object} normalized audit log object
+ * @returns {object} normalized audit log object
  * @since 0.1.0
  * @version 0.1.0
  * @static
@@ -503,7 +491,6 @@ export const event = (...params) => {
  * import { audit } from '@lykmapipo/logger';
  * const log = audit('user_edit', {from:..., to:...});
  * //=> { level: 'audit', timestamp: '2019-04-10T13:37:35.643Z', ...}
- *
  */
 export const audit = (...params) => {
   // obtain logger
@@ -525,7 +512,7 @@ export const audit = (...params) => {
  * @function stream
  * @name stream
  * @description expose log stream for use with morgan logger
- * @return {Object} normalized stream log object
+ * @returns {object} normalized stream log object
  * @since 0.1.0
  * @version 0.3.0
  * @static
@@ -537,7 +524,6 @@ export const audit = (...params) => {
  *
  * app.use(morgan('combined'), { stream });
  * //=> { level: 'info', timestamp: '2019-04-10T13:37:35.643Z', ...}
- *
  */
 export const stream = {
   write: (message) => info({ message: message.trim() }),

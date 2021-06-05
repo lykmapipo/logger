@@ -1,4 +1,4 @@
-import { isFunction, forEach, isString, isPlainObject, isError, omit } from 'lodash';
+import { forEach, isString, isPlainObject, isError, omit, isFunction } from 'lodash';
 import { getBoolean, getString, getStrings } from '@lykmapipo/env';
 import { mergeObjects, mapErrorToObject } from '@lykmapipo/common';
 import { transports, addColors, createLogger as createLogger$1, format } from 'winston';
@@ -37,7 +37,7 @@ const LOG_COLORS = {
  * @function isLoggingEnabled
  * @name isLoggingEnabled
  * @description check if logging is enabled
- * @return {Boolean} whether logging is enabled
+ * @returns {boolean} whether logging is enabled
  * @since 0.1.0
  * @version 0.1.0
  * @static
@@ -47,7 +47,6 @@ const LOG_COLORS = {
  * import { isLoggingEnabled } from '@lykmapipo/logger';
  * const enabled = isLoggingEnabled();
  * //=> true
- *
  */
 const isLoggingEnabled = () => {
   const isEnabled = getBoolean('LOGGER_LOG_ENABLED', true);
@@ -58,8 +57,8 @@ const isLoggingEnabled = () => {
  * @function canLog
  * @name canLog
  * @description check if logging is enabled and logger has log level
- * @param {String} level valid log level
- * @return {Boolean} whether log level can be logged
+ * @param {string} level valid log level
+ * @returns {boolean} whether log level can be logged
  * @since 0.1.0
  * @version 0.1.0
  * @static
@@ -69,9 +68,8 @@ const isLoggingEnabled = () => {
  * import { canLog } from '@lykmapipo/logger';
  * const can = canLog('error');
  * //=> true
- *
  */
-const canLog = level => {
+const canLog = (level) => {
   const can = logger && isFunction(logger[level]) && isLoggingEnabled();
   return can;
 };
@@ -80,7 +78,7 @@ const canLog = level => {
  * @function createWinstonLogger
  * @name createWinstonLogger
  * @description create winston logger instance
- * @return {Object} A new instance of winston logger
+ * @returns {object} A new instance of winston logger
  * @since 0.1.0
  * @version 0.1.0
  * @static
@@ -90,7 +88,6 @@ const canLog = level => {
  * import { createWinstonLogger } from '@lykmapipo/logger';
  * const logger = createWinstonLogger();
  * //=> DerivedLogger {}
- *
  */
 const createWinstonLogger = () => {
   // obtain configs
@@ -144,8 +141,8 @@ const createWinstonLogger = () => {
  * @function createLogger
  * @name createLogger
  * @description create logger instance if not exists
- * @param {Object} [customLogger] custom logger to use
- * @return {Object} A new instance of of logger
+ * @param {object} [customLogger] custom logger to use
+ * @returns {object} A new instance of of logger
  * @since 0.1.0
  * @version 0.1.0
  * @static
@@ -158,9 +155,8 @@ const createWinstonLogger = () => {
  *
  * const logger = createLogger(customLogger);
  * //=> Logger {}
- *
  */
-const createLogger = customLogger => {
+const createLogger = (customLogger) => {
   // create logger
   if (!logger) {
     // use custom logger or winston logger
@@ -177,6 +173,7 @@ const createLogger = customLogger => {
  * @function disposeLogger
  * @name disposeLogger
  * @description reset current logger instance in use
+ * @returns {*} null if logger disposed successfully
  * @since 0.1.0
  * @version 0.1.0
  * @static
@@ -186,7 +183,6 @@ const createLogger = customLogger => {
  * import { disposeLogger } from '@lykmapipo/logger';
  * const logger = disposeLogger();
  * //=> null
- *
  */
 const disposeLogger = () => {
   logger = null;
@@ -196,9 +192,9 @@ const disposeLogger = () => {
 /**
  * @function normalizeLog
  * @name normalizeLog
- * @param {String|Object|Error} params valid log params
+ * @param {string | object | Error} params valid log params
  * @description normalize log structure to simple logger-able object
- * @return {Object} normalized log object
+ * @returns {object} normalized log object
  * @since 0.1.0
  * @version 0.2.0
  * @static
@@ -211,14 +207,13 @@ const disposeLogger = () => {
  *
  * const log = normalizeLog(error);
  * //=> { level: 'error', timestamp: '2019-04-10T13:37:35.643Z', ...}
- *
  */
 const normalizeLog = (...params) => {
   // normalize args
   let log = { level: 'info', timestamp: new Date() };
 
   // merge params
-  forEach([].concat([...params]), param => {
+  forEach([].concat([...params]), (param) => {
     // pack message
     if (isString(param)) {
       log = mergeObjects(log, { message: param });
@@ -248,9 +243,9 @@ const normalizeLog = (...params) => {
 /**
  * @function error
  * @name error
- * @param {String|Object|Error} params valid log params
+ * @param {string | object | Error} params valid log params
  * @description log error
- * @return {Object} normalized error log object
+ * @returns {object} normalized error log object
  * @since 0.1.0
  * @version 0.1.0
  * @static
@@ -260,7 +255,6 @@ const normalizeLog = (...params) => {
  * import { error } from '@lykmapipo/logger';
  * const log = error(log);
  * //=> { level: 'error', timestamp: '2019-04-10T13:37:35.643Z', ...}
- *
  */
 const error = (...params) => {
   // obtain logger
@@ -281,9 +275,9 @@ const error = (...params) => {
 /**
  * @function warn
  * @name warn
- * @param {String|Object|Error} params valid log params
+ * @param {string | object | Error} params valid log params
  * @description log warn
- * @return {Object} normalized warn log object
+ * @returns {object} normalized warn log object
  * @since 0.1.0
  * @version 0.1.0
  * @static
@@ -293,7 +287,6 @@ const error = (...params) => {
  * import { warn } from '@lykmapipo/logger';
  * const log = warn(log);
  * //=> { level: 'warn', timestamp: '2019-04-10T13:37:35.643Z', ...}
- *
  */
 const warn = (...params) => {
   // obtain logger
@@ -314,9 +307,9 @@ const warn = (...params) => {
 /**
  * @function info
  * @name info
- * @param {String|Object|Error} params valid log params
+ * @param {string | object | Error} params valid log params
  * @description log info
- * @return {Object} normalized info log object
+ * @returns {object} normalized info log object
  * @since 0.1.0
  * @version 0.1.0
  * @static
@@ -326,7 +319,6 @@ const warn = (...params) => {
  * import { info } from '@lykmapipo/logger';
  * const log = info(log);
  * //=> { level: 'info', timestamp: '2019-04-10T13:37:35.643Z', ...}
- *
  */
 const info = (...params) => {
   // obtain logger
@@ -347,9 +339,9 @@ const info = (...params) => {
 /**
  * @function verbose
  * @name verbose
- * @param {String|Object|Error} params valid log params
+ * @param {string | object | Error} params valid log params
  * @description log verbose
- * @return {Object} normalized verbose log object
+ * @returns {object} normalized verbose log object
  * @since 0.1.0
  * @version 0.1.0
  * @static
@@ -359,7 +351,6 @@ const info = (...params) => {
  * import { verbose } from '@lykmapipo/logger';
  * const log = verbose(log);
  * //=> { level: 'verbose', timestamp: '2019-04-10T13:37:35.643Z', ...}
- *
  */
 const verbose = (...params) => {
   // obtain logger
@@ -380,9 +371,9 @@ const verbose = (...params) => {
 /**
  * @function debug
  * @name debug
- * @param {String|Object|Error} params valid log params
+ * @param {string | object | Error} params valid log params
  * @description log debug
- * @return {Object} normalized debug log object
+ * @returns {object} normalized debug log object
  * @since 0.1.0
  * @version 0.1.0
  * @static
@@ -392,7 +383,6 @@ const verbose = (...params) => {
  * import { debug } from '@lykmapipo/logger';
  * const log = debug(log);
  * //=> { level: 'debug', timestamp: '2019-04-10T13:37:35.643Z', ...}
- *
  */
 const debug = (...params) => {
   // obtain logger
@@ -413,9 +403,9 @@ const debug = (...params) => {
 /**
  * @function silly
  * @name silly
- * @param {String|Object|Error} params valid log params
+ * @param {string | object | Error} params valid log params
  * @description log silly
- * @return {Object} normalized silly log object
+ * @returns {object} normalized silly log object
  * @since 0.1.0
  * @version 0.1.0
  * @static
@@ -425,7 +415,6 @@ const debug = (...params) => {
  * import { silly } from '@lykmapipo/logger';
  * const log = silly(log);
  * //=> { level: 'silly', timestamp: '2019-04-10T13:37:35.643Z', ...}
- *
  */
 const silly = (...params) => {
   // obtain logger
@@ -446,9 +435,9 @@ const silly = (...params) => {
 /**
  * @function event
  * @name event
- * @param {String|Object|Error} params valid log params
+ * @param {string | object | Error} params valid log params
  * @description log event
- * @return {Object} normalized event log object
+ * @returns {object} normalized event log object
  * @since 0.5.0
  * @version 0.1.0
  * @static
@@ -458,7 +447,6 @@ const silly = (...params) => {
  * import { event } from '@lykmapipo/logger';
  * const log = event('user_click', params);
  * //=> { level: 'event', timestamp: '2019-04-10T13:37:35.643Z', ...}
- *
  */
 const event = (...params) => {
   // obtain logger
@@ -479,9 +467,9 @@ const event = (...params) => {
 /**
  * @function audit
  * @name audit
- * @param {String|Object|Error} params valid log params
+ * @param {string | object | Error} params valid log params
  * @description log audit
- * @return {Object} normalized audit log object
+ * @returns {object} normalized audit log object
  * @since 0.1.0
  * @version 0.1.0
  * @static
@@ -491,7 +479,6 @@ const event = (...params) => {
  * import { audit } from '@lykmapipo/logger';
  * const log = audit('user_edit', {from:..., to:...});
  * //=> { level: 'audit', timestamp: '2019-04-10T13:37:35.643Z', ...}
- *
  */
 const audit = (...params) => {
   // obtain logger
@@ -513,7 +500,7 @@ const audit = (...params) => {
  * @function stream
  * @name stream
  * @description expose log stream for use with morgan logger
- * @return {Object} normalized stream log object
+ * @returns {object} normalized stream log object
  * @since 0.1.0
  * @version 0.3.0
  * @static
@@ -525,10 +512,9 @@ const audit = (...params) => {
  *
  * app.use(morgan('combined'), { stream });
  * //=> { level: 'info', timestamp: '2019-04-10T13:37:35.643Z', ...}
- *
  */
 const stream = {
-  write: message => info({ message: message.trim() }),
+  write: (message) => info({ message: message.trim() }),
 };
 
 export { audit, canLog, createLogger, createWinstonLogger, debug, disposeLogger, error, event, info, isLoggingEnabled, normalizeLog, silly, stream, verbose, warn };
