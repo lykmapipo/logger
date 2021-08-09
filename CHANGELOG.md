@@ -1,3 +1,16 @@
+#### 0.5.39 (2021-08-09)
+
+##### Chores
+
+* **deps:**
+  *  force latest version & audit fix ([ba36377c](https://github.com/lykmapipo/logger/commit/ba36377c03188fc762bff1c9513a8c39fbaebeb9))
+  *  add coveralls ([a7871d3e](https://github.com/lykmapipo/logger/commit/a7871d3e3ef490c1cc0d5fdfe928325c87120301))
+
+##### Documentation Changes
+
+* **license:**  remove year ([01856ed4](https://github.com/lykmapipo/logger/commit/01856ed446af2c0e3c94f5dae7bf2d1b2cd1b70a))
+* **readme:**  update status badges ([d36e5f7c](https://github.com/lykmapipo/logger/commit/d36e5f7cab8f619d719a883143fdddf26e5f4549))
+
 #### 0.5.38 (2021-06-05)
 
 ##### Chores
