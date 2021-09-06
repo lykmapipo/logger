@@ -1,3 +1,13 @@
+#### 0.5.40 (2021-09-06)
+
+##### Chores
+
+* **deps:**  force latest version & audit fix ([23086ff8](https://github.com/lykmapipo/logger/commit/23086ff81918418a6dceb6e0648794011f09d69e))
+
+##### Documentation Changes
+
+* **readme:**  update build status to travis.com ([4e4dbafd](https://github.com/lykmapipo/logger/commit/4e4dbafd8a6944e1aa30aa16652fb719b98febf2))
+
 #### 0.5.39 (2021-08-09)
 
 ##### Chores
