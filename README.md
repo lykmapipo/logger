@@ -1,6 +1,6 @@
 # logger
 
-[![Build Status](https://travis-ci.com/lykmapipo/logger.svg?branch=master)](https://travis-ci.com/lykmapipo/logger)
+[![Build Status](https://app.travis-ci.com/lykmapipo/logger.svg?branch=master)](https://app.travis-ci.com/lykmapipo/logger)
 [![Dependencies Status](https://david-dm.org/lykmapipo/logger.svg)](https://david-dm.org/lykmapipo/logger)
 [![Coverage Status](https://coveralls.io/repos/github/lykmapipo/logger/badge.svg?branch=master)](https://coveralls.io/github/lykmapipo/logger?branch=master)
 [![GitHub License](https://img.shields.io/github/license/lykmapipo/logger)](https://github.com/lykmapipo/logger/blob/master/LICENSE)
