@@ -56,7 +56,7 @@
   "homepage": "https://github.com/lykmapipo/logger#readme",
   "devDependencies": {
     "@babel/cli": "^7.17.0",
-    "@babel/core": "^7.17.0",
+    "@babel/core": "^7.17.2",
     "@babel/node": "^7.16.8",
     "@babel/preset-env": "^7.16.11",
     "@babel/register": "^7.17.0",
@@ -86,7 +86,7 @@
     "nyc": "^15.1.0",
     "prettier": "^2.5.1",
     "rimraf": "^3.0.2",
-    "rollup": "^2.67.0",
+    "rollup": "^2.67.2",
     "shelljs": "^0.8.5",
     "std-mocks": "^1.0.1",
     "websocket-extensions": "^0.1.4"
@@ -96,7 +96,7 @@
     "@lykmapipo/common": ">=0.44.5",
     "@lykmapipo/env": ">=0.17.39",
     "lodash": ">=4.17.21",
-    "winston": ">=3.5.1",
+    "winston": ">=3.6.0",
     "winston-daily-rotate-file": ">=4.6.0"
   },
   "engines": {
